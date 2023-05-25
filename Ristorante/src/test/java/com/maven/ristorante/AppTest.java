@@ -1,8 +1,10 @@
 package com.maven.ristorante;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
@@ -194,6 +196,23 @@ public class AppTest
         r.aggiungiPrenotazione(p5);
         r.aggiungiPrenotazione(p6);
         assertEquals("Pluto", r.clientiOrdinatiPerNumeroPrenotazioni().stream().findFirst().get());
+    }
+
+    @Test
+    public void ClienteGiaInseritoExceptionTest(){
+        r.aggiungiCliente("Zebbone");
+        assertThrows(ClienteGiaInseritoException.class, () -> r.aggiungiCliente("Zebbone"));
+    }
+
+    @Test
+    public void ClienteNonEsistenteExceptionTest(){
+        assertThrows(ClienteNonEsistenteException.class, () -> r.aggiungiPrenotazione(new Prenotazione("Zebbone", LocalDate.of(2023,03,25), 5)));
+    }
+
+    @Test
+    public void PrenotazioneNonEsistenteExceptionTest(){
+        r.aggiungiCliente("Zebbone");
+        assertThrows(PrenotazioneNonEsistenteException.class, () -> r.eliminaPrenotazione(new Prenotazione("Zebbone", LocalDate.of(2023,03,25), 5)));
     }
 }
 

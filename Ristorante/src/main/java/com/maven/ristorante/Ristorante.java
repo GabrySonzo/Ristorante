@@ -7,9 +7,6 @@ import java.util.stream.*;
 
 public class Ristorante
 {
-    public class ClienteGiaInseritoException extends RuntimeException{};
-    public class ClienteNonEsistenteException extends RuntimeException{};
-    public class PrenotazioneNonEsistenteException extends RuntimeException{};
     
     HashMap<String, LinkedList<Prenotazione>> prenotazioni;    
     public Ristorante(){
